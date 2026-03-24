@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { ReactFlow, Background, Controls } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import InputNode from './components/InputNode'
@@ -36,7 +36,7 @@ function App() {
 
     const runFlow = async () => {
          setLoading(true)
-        const response = await fetch('http://localhost:5000/api/ask-ai', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ask-ai`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt })
@@ -47,7 +47,7 @@ function App() {
     }
 
     const saveFlow = async () => {
-        await fetch('http://localhost:5000/api/save', {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/save`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt, answer })
