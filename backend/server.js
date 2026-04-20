@@ -4,6 +4,8 @@ const axios = require('axios')
 require('dotenv').config();
 const connection = require('./config/db');
 const apiRoutes = require('./routes/api')
+const limiter = require('./middleware/rateLimiter')
+
 
 connection();
 
@@ -12,6 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api', apiRoutes)
+app.use('/api', limiter)
 
 
 const PORT = process.env.PORT || 5000
